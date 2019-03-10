@@ -1,0 +1,15 @@
+.Header {
+	width: 100%;
+	height: 50px;
+	background-color: blue;
+}
+
+.HeaderButton {
+	width: 100px;
+	height: 30px;
+	margin: 10px 20px;
+	box-sizing: border-box;
+	float: left;
+	background-color: green;
+	cursor: pointer;
+}

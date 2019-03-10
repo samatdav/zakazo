@@ -1,0 +1,46 @@
+.editCell {
+	text-align: center;
+	border: 1px solid red;
+	cursor: pointer;
+	line-height: 30px;
+	width: calc(50% - 20px);
+	margin: 10px;
+	
+}
+.editCell:hover {
+	background-color: red;
+}
+
+td {
+	line-height: 50px;
+	width: 33%;
+}
+
+tr:hover {
+	background-color: #eee;
+}
+
+tr {
+	border-bottom: 1px solid #ddd;
+}
+
+.AdminAddRow {
+	width: 100%;
+	height: 80px;
+	text-align: center;
+	line-height: 80px;
+}
+
+.AdminAddButton {
+	text-align: center;
+	border: 1px solid red;
+	cursor: pointer;
+	line-height: 30px;
+	width: 200px;
+	margin: 10px;
+	font-size: 20px;
+}
+
+.AdminAddButton:hover {
+	background-color: red;
+}

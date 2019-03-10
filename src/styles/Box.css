@@ -1,0 +1,19 @@
+.Box {
+	width: calc(25% - 40px);
+	height: 100px;
+	background-color: red;
+	margin: 20px;
+	float: left;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.boxText {
+	line-height: 60px;
+}
+
+@media screen and (max-width: 900px) {
+	.Box {
+		width: calc(50% - 40px);
+	}
+}
