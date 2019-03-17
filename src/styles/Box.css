@@ -1,3 +1,10 @@
+.BoxButton {
+	width: 50%;
+	height: 40px;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+
 .Box {
 	width: calc(25% - 40px);
 	height: 100px;

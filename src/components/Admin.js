@@ -12,14 +12,31 @@ function Admin(props) {
 	useEffect(() => {
 	  	db.collection("items").get().then((querySnapshot) => {
 		    setItems(querySnapshot.docs.map(item => 
-		    	({id: item.id, name: item.data().name, price: item.data().price})
+		    	({id: item.id, name: item.data().name, price: item.data().price, disabled: item.data().disabled})
 		    ));
 		});
 	}, []);
 	
 	function handleDelete (itemID) {
-	    setItems(items.filter(item => item.id != itemID));
+	    setItems(items.filter(item => item.id !== itemID));
 	    db.collection("items").doc(itemID).delete();
+	}
+
+	function handleDisable (itemID) {
+	    const itemRef = db.collection("items").doc(itemID);
+
+	    itemRef.get().then(function(item) {
+	    	const itemData = item.data();
+	    	setItems(items.map(item => 
+	    		{
+		    		if (item.id === itemID) item.disabled = !item.disabled;
+		    		return item;
+	    		}
+	    	));
+	    	itemRef.update({
+		    	disabled: !itemData.disabled,
+		    });
+	    });
 	}
 
 	return (
@@ -35,9 +52,19 @@ function Admin(props) {
 		      	  </thead>
 			      <tbody>
 			      	<AdminFirstRow items={items} setItems={setItems} />
-		      		{ items.map(item => 
-		      			<AdminRow key={item.id} id={item.id} name={item.name} price={item.price} handleDelete={handleDelete}/>
-		      		) }
+		      		{ 
+		      			items.map(item => 
+			      			<AdminRow 
+				      			key={item.id} 
+				      			id={item.id} 
+				      			name={item.name} 
+				      			price={item.price} 
+				      			disabled={item.disabled}
+				      			handleDelete={handleDelete} 
+				      			handleDisable={handleDisable}
+			      			/>
+		      			) 
+		      		}
 		      	  </tbody>
 		      </table>
 	      </div>

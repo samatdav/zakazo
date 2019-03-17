@@ -1,3 +1,7 @@
+.disabled {
+	background-color: #eee;
+}
+
 .editCell {
 	text-align: center;
 	border: 1px solid red;
@@ -17,7 +21,7 @@ td {
 }
 
 tr:hover {
-	background-color: #eee;
+	/*background-color: #eee;*/
 }
 
 tr {

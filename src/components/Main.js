@@ -1,21 +1,43 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/Main.css';
 import Box from './Box'
+import db from './Firestore';
 
+function Main() {
+  const [orders, setOrders] = useState([]);
 
-function Main(props) {
-  let makeBoxes = (n) => {
-    let boxes = [];
-    for (let i = 0; i < n; i++) {
-      boxes.push(<Box key={i} index={i}/>);
-    }
-    return boxes;
+  useEffect(() => {
+      db.collection("orders").get().then((querySnapshot) => {
+        setOrders(querySnapshot.docs.map(order => 
+          ({id: order.id, name: order.data().name, status: order.data().status})
+        ));
+    });
+  }, []);
+
+  
+  function handleClick (orderID, newStatus) {
+    const orderRef = db.collection("orders").doc(orderID);
+
+    orderRef.get().then(function(order) {
+      const orderData = order.data();
+      setOrders(orders.map(order => 
+        {
+          if (order.id === orderID) order.status = newStatus;
+          return order;
+        }
+      ));
+      orderRef.update({
+        status: newStatus,
+      });
+    });
   }
 
   return (
     <div className="Main">
     { 
-      makeBoxes(10)
+      orders.filter(order => order.status === 'new').map(order => 
+        <Box key={order.id} id={order.id} name={order.name} handleClick={handleClick}/>
+      )
     }
     </div>
   );

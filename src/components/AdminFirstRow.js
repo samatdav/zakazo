@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 // import '../styles/AdminFirstRow.css';
 import db from './Firestore';
 
@@ -6,11 +6,10 @@ function AdminFirstRow(props) {
       const [addNewBool, setAddNew] = useState(true);
 
       let addRow = <tr className='AdminAddRow'>
-                              <td colSpan='3'>
-                                    <button className='AdminAddButton' onClick={() => setAddNew(!addNewBool)}>Add new</button>
-                              </td>
-                        </tr>
-
+                        <td colSpan='3'>
+                              <button className='AdminAddButton' onClick={() => setAddNew(!addNewBool)}>Add new</button>
+                        </td>
+                   </tr>
 
       function AddItemForm() {
             const [itemName, setItemName] = useState("");
@@ -20,12 +19,12 @@ function AdminFirstRow(props) {
                   setAddNew(!addNewBool);
             }
 
-
             function handleSave() {
                   if (itemName && itemPrice && !isNaN(itemPrice)) {
                         db.collection("items").add({
                             name: itemName,
                             price: parseFloat(itemPrice),
+                            disabled: false,
                         })
                         .then(function(item) {
                               props.setItems([{id: item.id, name: itemName, price: itemPrice}].concat(props.items));
@@ -33,8 +32,6 @@ function AdminFirstRow(props) {
                         setAddNew(!addNewBool)
                   }
             }
-
-
 
             return (
                   <tr className='AdminAddRow'>
@@ -61,7 +58,7 @@ function AdminFirstRow(props) {
                               <button className='editCell' onClick={handleCancel}>Cancel</button>
                         </td>
                     </tr>
-        );
+            );
       }
 
       return addNewBool ? addRow : <AddItemForm/>
