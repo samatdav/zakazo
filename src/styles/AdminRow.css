@@ -9,15 +9,34 @@
 	line-height: 30px;
 	width: calc(50% - 20px);
 	margin: 10px;
-	
 }
+
+@media screen and (max-width: 500px) {
+	.editCell {
+		margin: 10px 2px;
+		width: calc(50% - 4px);
+	}
+}
+
 .editCell:hover {
 	background-color: red;
 }
 
 td {
-	line-height: 50px;
-	width: 33%;
+	/*line-height: 50px;*/
+	/*width: 33%;*/
+}
+
+.nameCell {
+	width: 50%;
+}
+
+.priceCell {
+	width: 20%;
+}
+
+.buttonsCell {
+	width: 30%;
 }
 
 tr:hover {
@@ -39,7 +58,7 @@ tr {
 	text-align: center;
 	border: 1px solid red;
 	cursor: pointer;
-	line-height: 30px;
+	line-height: 40px;
 	width: 200px;
 	margin: 10px;
 	font-size: 20px;

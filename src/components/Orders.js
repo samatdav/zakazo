@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/Main.css';
+import '../styles/Orders.css';
 import Box from './Box'
-import db from './Firestore';
+import firebase from './Firebase';
 
-function Main() {
+function Orders() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-      db.collection("orders").get().then((querySnapshot) => {
+      firebase.db.collection("orders").get().then((querySnapshot) => {
         setOrders(querySnapshot.docs.map(order => 
           ({id: order.id, name: order.data().name, status: order.data().status})
         ));
@@ -16,10 +16,9 @@ function Main() {
 
   
   function handleClick (orderID, newStatus) {
-    const orderRef = db.collection("orders").doc(orderID);
+    const orderRef = firebase.db.collection("orders").doc(orderID);
 
     orderRef.get().then(function(order) {
-      const orderData = order.data();
       setOrders(orders.map(order => 
         {
           if (order.id === orderID) order.status = newStatus;
@@ -33,7 +32,7 @@ function Main() {
   }
 
   return (
-    <div className="Main">
+    <div className="Orders">
     { 
       orders.filter(order => order.status === 'new').map(order => 
         <Box key={order.id} id={order.id} name={order.name} handleClick={handleClick}/>
@@ -43,4 +42,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default Orders;

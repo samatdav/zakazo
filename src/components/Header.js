@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/Header.css'
 import { Link } from "react-router-dom";
+import firebase from './Firebase';
 
 function HeaderButton(props) {
 	return (
@@ -19,10 +20,14 @@ function Header(props) {
 				props.children
 				:
 				<div>
-			      <HeaderButton to='/main' text='Main'/>
-			      <HeaderButton to='/admin' text='Admin Panel'/>
-			      <HeaderButton to='/login' text='Login'/>
-			      <a href='hi.html'><button className='HeaderButton'>Landing</button></a>
+				  <div className='HeaderLeft'>
+				      <HeaderButton to='/orders' text='Orders'/>
+				      <HeaderButton to='/admin' text='Admin Panel'/>
+			      	  {/* <a href='hi.html'><button className='HeaderButton'>Landing</button></a> */}
+				  </div>
+				  <div className='HeaderRight'>
+				      <p className='signOut' onClick={() => firebase.auth().signOut()}>Sign Out</p>
+				  </div>
 			    </div>
 			}
 		</div>

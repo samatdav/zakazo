@@ -6,9 +6,9 @@ function AdminRow(props) {
       const disabledText = props.disabled ? 'Enable' : 'Disable';
 	return (
 		<tr className={disabledClass}>
-      		<td>{props.name}</td>
-      		<td>{props.price}</td>
-      		<td>
+      		<td className='nameCell'>{props.name}</td>
+      		<td className='priceCell'>{props.price}</td>
+      		<td className='buttonsCell'>
       			<button className='editCell' onClick={() => props.handleDisable(props.id)}>{disabledText}</button>
       			<button className='editCell' onClick={() => props.handleDelete(props.id)}>Delete</button>
       		</td>

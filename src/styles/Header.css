@@ -1,15 +1,38 @@
 .Header {
 	width: 100%;
 	height: 50px;
-	background-color: blue;
+	background-color: #ccc;
 }
 
 .HeaderButton {
+	border: 1px solid red;
+	line-height: 28px;
 	width: 100px;
 	height: 30px;
 	margin: 10px 20px;
 	box-sizing: border-box;
 	float: left;
-	background-color: green;
+	background-color: white;
 	cursor: pointer;
+}
+
+.HeaderButton:hover {
+	background-color: red;
+}
+
+@media screen and (max-width: 500px) {
+	.HeaderButton {
+		width: 70px;
+		margin: 10px;
+	}
+}
+
+.HeaderRight {
+	float: right;
+}
+
+.signOut {
+	margin-right: 20px;
+	cursor: pointer;
+	color: red;
 }

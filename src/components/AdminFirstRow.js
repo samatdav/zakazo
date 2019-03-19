@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // import '../styles/AdminFirstRow.css';
-import db from './Firestore';
+import firebase from './Firebase';
 
 function AdminFirstRow(props) {
       const [addNewBool, setAddNew] = useState(true);
@@ -21,7 +21,7 @@ function AdminFirstRow(props) {
 
             function handleSave() {
                   if (itemName && itemPrice && !isNaN(itemPrice)) {
-                        db.collection("items").add({
+                        firebase.db.collection("items").add({
                             name: itemName,
                             price: parseFloat(itemPrice),
                             disabled: false,

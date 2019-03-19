@@ -5,8 +5,8 @@ function Box(props) {
 	return (
 		<div className='Box'> 
 			<div className='boxText'>{props.name}</div>
-			<button className='BoxButton'> Complete </button>
-			<button className='BoxButton'> Cancel </button>
+			<button className='BoxButton' onClick={() => props.handleClick(props.id, 'completed')}> Complete </button>
+			<button className='BoxButton' onClick={() => props.handleClick(props.id, 'cancelled')}> Cancel </button>
 		</div>
 	);
 }

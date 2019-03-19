@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AdminRow from './AdminRow';
 import AdminFirstRow from './AdminFirstRow';
-import db from './Firestore';
+import firebase from './Firebase';
 import '../styles/Admin.css';
 
 
@@ -10,7 +10,7 @@ function Admin(props) {
 	const [items, setItems] = useState([]);
 
 	useEffect(() => {
-	  	db.collection("items").get().then((querySnapshot) => {
+	  	firebase.db.collection("items").get().then((querySnapshot) => {
 		    setItems(querySnapshot.docs.map(item => 
 		    	({id: item.id, name: item.data().name, price: item.data().price, disabled: item.data().disabled})
 		    ));
@@ -19,11 +19,11 @@ function Admin(props) {
 	
 	function handleDelete (itemID) {
 	    setItems(items.filter(item => item.id !== itemID));
-	    db.collection("items").doc(itemID).delete();
+	    firebase.db.collection("items").doc(itemID).delete();
 	}
 
 	function handleDisable (itemID) {
-	    const itemRef = db.collection("items").doc(itemID);
+	    const itemRef = firebase.db.collection("items").doc(itemID);
 
 	    itemRef.get().then(function(item) {
 	    	const itemData = item.data();
