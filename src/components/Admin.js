@@ -1,72 +1,73 @@
 import React, { useState, useEffect } from 'react';
-import AdminRow from './AdminRow';
-import AdminFirstRow from './AdminFirstRow';
+import AdminCategory from './AdminCategory';
 import firebase from './Firebase';
 import '../styles/Admin.css';
 
-
 function Admin(props) {
+	const userUID = firebase.auth().currentUser.uid;
+	const barRef = firebase.db.collection("Bars").doc(userUID);
+	const barCategories = barRef.collection("categories");
 
-	const [items, setItems] = useState([]);
+	const [categories, setCategories] = useState([]);
+	const [barName, setBarName] = useState('');
+	const [categoryName, setCategoryName] = useState('');
+	const [addCategoryDisplay, setAddCategoryDisplay] = useState(false);
 
 	useEffect(() => {
-	  	firebase.db.collection("items").get().then((querySnapshot) => {
-		    setItems(querySnapshot.docs.map(item => 
-		    	({id: item.id, name: item.data().name, price: item.data().price, disabled: item.data().disabled})
-		    ));
+		barRef.get().then(querySnapshot => {
+			setBarName(querySnapshot.data().name);
+		});
+
+		barCategories.get().then(querySnapshot => {
+		    setCategories(querySnapshot.docs.map(query => query.id));
 		});
 	}, []);
-	
-	function handleDelete (itemID) {
-	    setItems(items.filter(item => item.id !== itemID));
-	    firebase.db.collection("items").doc(itemID).delete();
-	}
 
-	function handleDisable (itemID) {
-	    const itemRef = firebase.db.collection("items").doc(itemID);
+	function handleCategorySave() {
+      if (categoryName) {
+        barCategories.add({
+          name: categoryName,
+        })
+        .then(function(category) {
+        	setCategories([category.id].concat(categories));
+        })
+        setCategoryName('');
+        setAddCategoryDisplay(!addCategoryDisplay)
+      }
+  }
 
-	    itemRef.get().then(function(item) {
-	    	const itemData = item.data();
-	    	setItems(items.map(item => 
-	    		{
-		    		if (item.id === itemID) item.disabled = !item.disabled;
-		    		return item;
-	    		}
-	    	));
-	    	itemRef.update({
-		    	disabled: !itemData.disabled,
-		    });
-	    });
-	}
+	const plusSVG = <svg xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd"><path d="M11.5 0c6.347 0 11.5 5.153 11.5 11.5s-5.153 11.5-11.5 11.5-11.5-5.153-11.5-11.5 5.153-11.5 11.5-11.5zm0 1c5.795 0 10.5 4.705 10.5 10.5s-4.705 10.5-10.5 10.5-10.5-4.705-10.5-10.5 4.705-10.5 10.5-10.5zm.5 10h6v1h-6v6h-1v-6h-6v-1h6v-6h1v6z"/></svg>
+	const minusSVG = <svg xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd"><path d="M11.5 0c6.347 0 11.5 5.153 11.5 11.5s-5.153 11.5-11.5 11.5-11.5-5.153-11.5-11.5 5.153-11.5 11.5-11.5zm0 1c5.795 0 10.5 4.705 10.5 10.5s-4.705 10.5-10.5 10.5-10.5-4.705-10.5-10.5 4.705-10.5 10.5-10.5zm-6.5 10h13v1h-13v-1z"/></svg>
 
 	return (
 		<div>
 	      <div className='AdminContent'>
-		      <table className='AdminTable'>
-			      <thead>
-			      	<tr>
-			      		<th>Name</th>
-			      		<th>Price</th>
-			      		<th>Change</th>
-			      	</tr>
-		      	  </thead>
-			      <tbody>
-			      	<AdminFirstRow items={items} setItems={setItems} />
-		      		{ 
-		      			items.map(item => 
-			      			<AdminRow 
-				      			key={item.id} 
-				      			id={item.id} 
-				      			name={item.name} 
-				      			price={item.price} 
-				      			disabled={item.disabled}
-				      			handleDelete={handleDelete} 
-				      			handleDisable={handleDisable}
-			      			/>
-		      			) 
-		      		}
-		      	  </tbody>
-		      </table>
+	      	  <div className='barHeader'>
+	      	  	<div className='barName'>{barName}</div>
+	      	  	<div className='addCategoryButton' onClick={() => setAddCategoryDisplay(!addCategoryDisplay)}>
+	      	  		{addCategoryDisplay ? minusSVG : plusSVG}	
+	      	  	</div>
+	      	  </div>
+
+	      	  <div className='AdminTile' style={{display: addCategoryDisplay ? 'block' : 'none'}}>
+	      	  	<div className='newCategoryTile'>
+	      	  		<input
+			          value={categoryName}
+			          onChange={e => setCategoryName(e.target.value)}
+			          className='addCategoryInput'
+			          placeholder="Category Name"
+			          type="text"
+			          name="itemName"
+			          required
+			        />
+			        <button className='editCell saveCategoryButton' onClick={handleCategorySave}>Save</button>
+	      	  	</div>
+	      	  </div>
+
+	      	  {
+	      	  	categories.map(categoryID => <AdminCategory key={categoryID} categoryRef={firebase.db.collection("Bars").doc(userUID).collection("categories").doc(categoryID)}/>)
+	      	  }
+
 	      </div>
 		</div>
 	);

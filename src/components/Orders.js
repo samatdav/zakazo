@@ -5,18 +5,19 @@ import firebase from './Firebase';
 
 function Orders() {
   const [orders, setOrders] = useState([]);
+  const userUID = firebase.auth().currentUser.uid;
+  const barOrders = firebase.db.collection("Bars").doc(userUID).collection("orders");
 
   useEffect(() => {
-      firebase.db.collection("orders").get().then((querySnapshot) => {
+      barOrders.get().then((querySnapshot) => {
         setOrders(querySnapshot.docs.map(order => 
           ({id: order.id, name: order.data().name, status: order.data().status})
         ));
     });
   }, []);
 
-  
   function handleClick (orderID, newStatus) {
-    const orderRef = firebase.db.collection("orders").doc(orderID);
+    const orderRef = barOrders.doc(orderID);
 
     orderRef.get().then(function(order) {
       setOrders(orders.map(order => 

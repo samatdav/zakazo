@@ -1,3 +1,9 @@
+.AdminRow:after { 
+    content: " "; 
+    display: block;
+    clear: both;
+} 
+
 .disabled {
 	background-color: #eee;
 }
@@ -22,48 +28,25 @@
 	background-color: red;
 }
 
-td {
-	/*line-height: 50px;*/
-	/*width: 33%;*/
-}
-
 .nameCell {
-	width: 50%;
+	display: block;
+	margin: 16px 10px;
+	float: left;
+	font-size: 20px;
+	width: calc(50% - 20px);
 }
 
 .priceCell {
-	width: 20%;
+	margin: 16px 10px;
+	float: left;
+	width: calc(20% - 20px);
+	cursor: pointer;
+	fill: red;
+	vertical-align: center;
 }
 
 .buttonsCell {
-	width: 30%;
-}
-
-tr:hover {
-	/*background-color: #eee;*/
-}
-
-tr {
-	border-bottom: 1px solid #ddd;
-}
-
-.AdminAddRow {
-	width: 100%;
-	height: 80px;
-	text-align: center;
-	line-height: 80px;
-}
-
-.AdminAddButton {
-	text-align: center;
-	border: 1px solid red;
-	cursor: pointer;
-	line-height: 40px;
-	width: 200px;
-	margin: 10px;
-	font-size: 20px;
-}
-
-.AdminAddButton:hover {
-	background-color: red;
+	display: inline-block;
+	width: calc(30% - 20px);
+	float: right;
 }

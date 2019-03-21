@@ -1,14 +1,14 @@
 import firebase from 'firebase';
 
 var config = {
-    apiKey: "AIzaSyDsThETmDxn9gHWGaJ4ui5AacvUsKpD2pU",
-    authDomain: "zakazocom.firebaseapp.com",
-    databaseURL: "https://zakazocom.firebaseio.com",
-    projectId: "zakazocom",
-    storageBucket: "zakazocom.appspot.com",
-    messagingSenderId: "458350876770"
+	apiKey: "AIzaSyBObUvnQvFnbpqRGS6Hi6bfdzv_EqlkS6c",
+	authDomain: "zakazo-840f1.firebaseapp.com",
+	databaseURL: "https://zakazo-840f1.firebaseio.com",
+	projectId: "zakazo-840f1",
+	storageBucket: "zakazo-840f1.appspot.com",
+	messagingSenderId: "651753499509"
 };
-
+  
 firebase.initializeApp(config);
 
 firebase.db = firebase.firestore();

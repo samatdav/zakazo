@@ -1,7 +1,8 @@
 .AdminContent {
 	width: 900px;
 	margin: auto;
-	background-color: white;
+	margin-top: 50px;
+	/*background-color: white;*/
 }
 
 @media screen and (max-width: 900px) {
@@ -10,11 +11,33 @@
 	}
 }
 
-.AdminTable {
+.addCategoryInput {
+	width: calc(70% - 20px);
+	float: left;
+	margin: 10px;
+	height: 36px;
+}
+
+.newCategoryTile {
+	height: 50px;
+}
+
+.saveCategoryButton {
+	width: calc(30% - 20px);
+	float: right;
+
+}
+
+.AdminTile {
+	display: block;
+    clear: both;
 	width: 100%;
-	margin-top: 50px;
 	/*border: 1px solid black;*/
 	border-collapse: collapse;
+	background-color: white;
+	margin-bottom: 20px;
+	padding: 10px;
+	/*min-height: 50px;*/
 }
 
 th {
@@ -28,4 +51,23 @@ th {
 	width: 100%;
 	height: 36px;
 	font-size: 16px;
+}
+
+.barName {
+	font-size: 30px;
+	float: left;
+	line-height: 30px;
+}
+
+.addCategoryButton svg {
+	float: right;
+	height: 30px;
+	width: 30px;
+	cursor: pointer;
+	fill: red;
+	vertical-align: center;
+}
+
+.barHeader {
+	height: 50px;
 }

@@ -1,8 +1,6 @@
 import React from 'react';
 import '../styles/Login.css';
 import firebase from './Firebase';
-// import * as firebaseui from 'firebaseui';
-// import '../../node_modules/firebaseui/dist/firebaseui.css';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
 function Login(props) {
@@ -12,14 +10,21 @@ function Login(props) {
         callbacks: {
           signInSuccessWithAuthResult: function(authResult, redirectUrl) {
             var user = authResult.user;
-            var credential = authResult.credential;
+            // var credential = authResult.credential;
             var isNewUser = authResult.additionalUserInfo.isNewUser;
-            var providerId = authResult.additionalUserInfo.providerId;
-            var operationType = authResult.operationType;
+            // var providerId = authResult.additionalUserInfo.providerId;
+            // var operationType = authResult.operationType;
+
+            // TODO: check if bar exist. If not, ask for info and create new Bar.
+            if (isNewUser) {
+              firebase.db.collection("Bars").doc(user.uid).set({
+                  name: 'bar name',
+              });
+            }
             // Do something with the returned AuthResult.
             // Return type determines whether we continue the redirect automatically
             // or whether we leave that to developer to handle.
-            return true;
+            // return true;
           },
           signInFailure: function(error) {
           },
@@ -33,7 +38,7 @@ function Login(props) {
         queryParameterForSignInSuccessUrl: 'signInSuccessUrl',
         // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
         signInFlow: 'popup',
-        signInSuccessUrl: 'admin',
+        signInSuccessUrl: 'orders',
         signInOptions: [
           // Leave the lines as is for the providers you want to offer your users.
           firebase.auth.GoogleAuthProvider.PROVIDER_ID,

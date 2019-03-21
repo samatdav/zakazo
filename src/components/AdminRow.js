@@ -5,15 +5,15 @@ function AdminRow(props) {
       const disabledClass = props.disabled ? 'disabled' : '';
       const disabledText = props.disabled ? 'Enable' : 'Disable';
 	return (
-		<tr className={disabledClass}>
-      		<td className='nameCell'>{props.name}</td>
-      		<td className='priceCell'>{props.price}</td>
-      		<td className='buttonsCell'>
+		<div className={'AdminRow ' + disabledClass}>
+      		<div className='nameCell'>{props.name}</div>
+      		<div className='priceCell'>{props.price}</div>
+      		<div className='buttonsCell'>
       			<button className='editCell' onClick={() => props.handleDisable(props.id)}>{disabledText}</button>
       			<button className='editCell' onClick={() => props.handleDelete(props.id)}>Delete</button>
-      		</td>
+      		</div>
       		
-      	</tr>
+      	</div>
 	);
 }
 
