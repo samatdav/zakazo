@@ -5,6 +5,7 @@ import * as serviceWorker from './serviceWorker';
 import './index.css';
 import firebase from './components/Firebase';
 
+import Register from './components/Register';
 import Orders from './components/Orders';
 import Admin from './components/Admin';
 import Login from './components/Login';
@@ -40,6 +41,7 @@ function App() {
         <div className="App">
           <Header/>
             <Switch>
+             <Route path='/register' component={Register}/>
              <Route path='/admin' component={Admin}/>
              <Route path='/' component={Orders}/>
             </Switch>

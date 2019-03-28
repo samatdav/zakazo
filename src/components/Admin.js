@@ -59,13 +59,13 @@ function Admin(props) {
 			          type="text"
 			          name="itemName"
 			          required
-			        />
-			        <button className='editCell saveCategoryButton' onClick={handleCategorySave}>Save</button>
+				        />
+				        <button className='editCell saveCategoryButton' onClick={handleCategorySave}>Save</button>
 	      	  	</div>
 	      	  </div>
 
 	      	  {
-	      	  	categories.map(categoryID => <AdminCategory key={categoryID} categoryRef={firebase.db.collection("Bars").doc(userUID).collection("categories").doc(categoryID)}/>)
+	      	  	categories.map(categoryID => <AdminCategory key={categoryID} categoryID={categoryID} barCategories={barCategories} categoryRef={firebase.db.collection("Bars").doc(userUID).collection("categories").doc(categoryID)}/>)
 	      	  }
 
 	      </div>
